@@ -4,65 +4,38 @@
     {
         static void Main(string[] args)
         {
-
-
-            var arv1 = new BankAccount("Main account", 2000);
-            var arv2 = new BankAccount("Savings account", 10000);
-
-            var peter1 = new BankAccount("Main account", 200);
-            var peter2 = new BankAccount("Savings account", 400000);
-            var peter3 = new BankAccount("Investments account", 1000);
-
-            var paul1 = new BankAccount("Main account", 23000);
-            var paul2 = new BankAccount("Savings account", 305000);
-            var paul3 = new BankAccount("Investments account", 2000);
-            var paul4 = new BankAccount("Pension account", 110000);
-
-            var steven1 = new BankAccount("Main account", 2000);
-            var steven2 = new BankAccount("Savings account", 79000);
-            var steven3 = new BankAccount("Investments account", 2000);
-            var steven4 = new BankAccount("Pension account", 800000);
-            var steven5 = new BankAccount("Secret gambling account", 1000000);
-
-            var sparven1 = new BankAccount("Main account", 1000000);
-            var sparven2 = new BankAccount("Savings account", 20000000);
-            var sparven3 = new BankAccount("Investments account", 3000000);
-            var sparven4 = new BankAccount("Pension account", 10);
-            var sparven5 = new BankAccount("Grandkids account", 2000);
-            var sparven6 = new BankAccount("Mistress account", 400000);
-
-
+            //Creating an array for each user and create their bank accounts inside each array
             BankAccount[] arvAccounts = new BankAccount[2];
-            arvAccounts[0] = arv1;
-            arvAccounts[1] = arv2;
+            arvAccounts[0] = new BankAccount("Main account", 2000);
+            arvAccounts[1] = new BankAccount("Savings account", 10000);
 
             BankAccount[] peterAccounts = new BankAccount[3];
-            peterAccounts[0] = peter1;
-            peterAccounts[1] = peter2;
-            peterAccounts[2] = peter3;
+            peterAccounts[0] = new BankAccount("Main account", 200);
+            peterAccounts[1] = new BankAccount("Savings account", 400000);
+            peterAccounts[2] = new BankAccount("Investments account", 1000);
 
             BankAccount[] paulAccounts = new BankAccount[4];
-            paulAccounts[0] = paul1;
-            paulAccounts[1] = paul2;
-            paulAccounts[2] = paul3;
-            paulAccounts[3] = paul4;
+            paulAccounts[0] = new BankAccount("Main account", 23000);
+            paulAccounts[1] = new BankAccount("Savings account", 305000);
+            paulAccounts[2] = new BankAccount("Investments account", 2000);
+            paulAccounts[3] = new BankAccount("Pension account", 110000);
 
             BankAccount[] stevenAccounts = new BankAccount[5];
-            stevenAccounts[0] = steven1;
-            stevenAccounts[1] = steven2;
-            stevenAccounts[2] = steven3;
-            stevenAccounts[3] = steven4;
-            stevenAccounts[4] = steven5;
+            stevenAccounts[0] = new BankAccount("Main account", 2000);
+            stevenAccounts[1] = new BankAccount("Savings account", 79000);
+            stevenAccounts[2] = new BankAccount("Investments account", 2000);
+            stevenAccounts[3] = new BankAccount("Pension account", 800000);
+            stevenAccounts[4] = new BankAccount("Secret gambling account", 1000000);
 
             BankAccount[] sparvenAccounts = new BankAccount[6];
-            sparvenAccounts[0] = sparven1;
-            sparvenAccounts[1] = sparven2;
-            sparvenAccounts[2] = sparven3;
-            sparvenAccounts[3] = sparven4;
-            sparvenAccounts[4] = sparven5;
-            sparvenAccounts[5] = sparven6;
+            sparvenAccounts[0] = new BankAccount("Main account", 1000000);
+            sparvenAccounts[1] = new BankAccount("Savings account", 20000000);
+            sparvenAccounts[2] = new BankAccount("Investments account", 3000000);
+            sparvenAccounts[3] = new BankAccount("Pension account", 10);
+            sparvenAccounts[4] = new BankAccount("Grandkids account", 2000);
+            sparvenAccounts[5] = new BankAccount("Mistress account", 400000);
 
-
+            //Here I create each user and assign corresponding array with bank accounts
             var arv = new UserAccount("1111", "Arv", arvAccounts);
             var peter = new UserAccount("2222", "Peter", peterAccounts);
             var paul = new UserAccount("3333", "Paul", paulAccounts);
