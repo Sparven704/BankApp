@@ -1,0 +1,15 @@
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\bin\Debug\net6.0\BankApp.exe
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\bin\Debug\net6.0\BankApp.deps.json
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\bin\Debug\net6.0\BankApp.runtimeconfig.json
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\bin\Debug\net6.0\BankApp.dll
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\bin\Debug\net6.0\BankApp.pdb
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.csproj.AssemblyReference.cache
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.AssemblyInfoInputs.cache
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.AssemblyInfo.cs
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.csproj.CoreCompileInputs.cache
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.dll
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\refint\BankApp.dll
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.pdb
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\BankApp.genruntimeconfig.cache
+C:\Users\Arvid\OneDrive\yh-projects\C#\BankApp\BankApp\obj\Debug\net6.0\ref\BankApp.dll
