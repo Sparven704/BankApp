@@ -2,19 +2,17 @@
 {
     public class UserAccount
     {
-        public int pinCode { get; set; }
+        public string pinCode { get; set; }
         public string userName { get; }
 
-        public BankAccount accountOne { get; set; }
+        public BankAccount[] userAccounts { get; set; }
 
-        public BankAccount accountTwo { get; set; }
-
-        public UserAccount(int pin, string name, BankAccount one, BankAccount two)
+        public UserAccount(string pin, string name, BankAccount[] accounts)
         {
+            userAccounts = accounts;
             pinCode = pin;
             userName = name;
-            accountOne = one;
-            accountTwo = two;
+
         }
         //I use this method to build the UI for each user after they have logged in
         public void BuildUI(UserAccount user)
@@ -24,13 +22,15 @@
             while (programLoop == true)
             {
                 Console.WriteLine("---------------------------------------------------------");
+                Console.WriteLine();
                 Console.WriteLine($"Hello {user.userName}!");
                 Console.WriteLine();
                 Console.WriteLine("1. View your accounts");
                 Console.WriteLine("2. Transfer funds between accounts");
                 Console.WriteLine("3. Withdraw money");
                 Console.WriteLine("4. Deposit money");
-                Console.WriteLine("5. Log out");
+                Console.WriteLine("5. Transaction history");
+                Console.WriteLine("6. Log out");
                 Console.WriteLine();
                 Console.WriteLine("Enter corresponding number to choose option: ");
                 string userChoice = Console.ReadLine();
@@ -40,111 +40,226 @@
                     case "1":
                         Console.WriteLine("---------------------------------------------------------");
                         Console.WriteLine();
-                        Console.WriteLine($"{user.accountOne.accountName}; Account number {user.accountOne.accountNumber}; Balance: {user.accountOne.Balance} kr.");
-                        Console.WriteLine();
-                        Console.WriteLine($"{user.accountTwo.accountName}; Account number {user.accountTwo.accountNumber}; Balance: {user.accountTwo.Balance} kr.");
-                        Console.WriteLine();
+                        //loops through the selected users bank accounts and writes out all of the different accounts and whats inside of them
+                        for (int i = 0; i < user.userAccounts.Length; i++)
+                        {
+                            Console.WriteLine($"{user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                            Console.WriteLine();
+                        }
+
+                        //lines to make the program wait until you press a key to restart the loop
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine("Press any key to return to menu");
+                        Console.ReadKey();
                         break;
                     case "2":
                         Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine();
-                        Console.WriteLine($"1. {user.accountOne.accountName}; Account number {user.accountOne.accountNumber}; Balance: {user.accountOne.Balance} kr.");
-                        Console.WriteLine();
-                        Console.WriteLine($"2. {user.accountTwo.accountName}; Account number {user.accountTwo.accountNumber}; Balance: {user.accountTwo.Balance} kr.");
+                        for (int i = 0; i < user.userAccounts.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                            Console.WriteLine();
+                        }
                         Console.WriteLine();
                         Console.WriteLine("What account do you want to transfer money from? Write corresponding number:  ");
-                        string userChoiceTransferFrom = Console.ReadLine();
+                        int userChoiceTransferFrom = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("And what account do you want to transfer too? ");
-                        string userChoiceTransferToo = Console.ReadLine();
+                        int userChoiceTransferToo = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("And lastly how much money do you want to transfer? ");
                         int userChoiceTransferAmount = Convert.ToInt32(Console.ReadLine());
-                        if (userChoiceTransferFrom == "1")
-                        {
-                            user.accountOne.MakeWithdrawal(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
-                            user.accountTwo.MakeDeposit(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
+                        int fromIndex = userChoiceTransferFrom - 1;
+                        int toIndex = userChoiceTransferToo - 1;
 
-                        }
-                        else if (userChoiceTransferFrom == "1")
+
+                        // making sure you can't select a higher or lower number than amount of accounts.
+                        if (userChoiceTransferFrom > user.userAccounts.Length | userChoiceTransferToo > user.userAccounts.Length)
                         {
-                            user.accountTwo.MakeWithdrawal(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
-                            user.accountOne.MakeDeposit(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
+                        }
+                        else if (userChoiceTransferFrom <= 0 | userChoiceTransferToo <= 0)
+                        {
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("Invalid option. Please try again: ");
-                            userChoiceTransferFrom = Console.ReadLine();
+                            user.userAccounts[fromIndex].MakeWithdrawal(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
+                            user.userAccounts[toIndex].MakeDeposit(userChoiceTransferAmount, DateTime.Now, "Money Transfer");
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Your money has been transfered. New balances: ");
+                            Console.WriteLine();
+
+                            for (int i = 0; i < user.userAccounts.Length; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                                Console.WriteLine();
+                            }
+
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
                         }
-                        Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine("Your money has been transfered. New balances: ");
-                        Console.WriteLine();
-                        Console.WriteLine($"{user.accountOne.accountName}; Account number {user.accountOne.accountNumber}; Balance: {user.accountOne.Balance} kr.");
-                        Console.WriteLine();
-                        Console.WriteLine($"{user.accountTwo.accountName}; Account number {user.accountTwo.accountNumber}; Balance: {user.accountTwo.Balance} kr.");
                         break;
                     case "3":
                         Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine();
-                        Console.WriteLine($"1. {user.accountOne.accountName}; Account number {user.accountOne.accountNumber}; Balance: {user.accountOne.Balance} kr.");
-                        Console.WriteLine();
-                        Console.WriteLine($"2. {user.accountTwo.accountName}; Account number {user.accountTwo.accountNumber}; Balance: {user.accountTwo.Balance} kr.");
-                        Console.WriteLine();
+                        for (int i = 0; i < user.userAccounts.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                            Console.WriteLine();
+                        }
                         Console.WriteLine("---------------------------------------------------------");
                         Console.WriteLine();
                         Console.WriteLine("What account do you want to withdraw money from? Write corresponding number:  ");
-                        string userChoiceWithdraw = Console.ReadLine();
+                        int userChoiceWithdraw = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("And how much money do you want to withdraw? ");
                         int userChoiceWithdrawAmount = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine();
-                        if (userChoiceWithdraw == "1")
+
+                        int withdrawIndex = userChoiceWithdraw - 1;
+
+
+
+                        if (userChoiceWithdraw > user.userAccounts.Length)
                         {
-                            user.accountOne.MakeWithdrawal(userChoiceWithdrawAmount, DateTime.Now, "Withdrawal");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
                         }
-                        else if (userChoiceWithdraw == "1")
+                        else if (userChoiceWithdraw <= 0)
                         {
-                            user.accountTwo.MakeWithdrawal(userChoiceWithdrawAmount, DateTime.Now, "Withdrawal");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("Invalid option. Please try again: ");
-                            userChoiceWithdraw = Console.ReadLine();
+                            user.userAccounts[withdrawIndex].MakeWithdrawal(userChoiceWithdrawAmount, DateTime.Now, "Money withdrawal");
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Your money has been Withdrawn. New balances: ");
+                            Console.WriteLine();
+
+                            for (int i = 0; i < user.userAccounts.Length; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                                Console.WriteLine();
+                            }
+
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
                         }
                         break;
                     case "4":
                         Console.WriteLine("---------------------------------------------------------");
-                        Console.WriteLine();
-                        Console.WriteLine($"1. {user.accountOne.accountName}; Account number {user.accountOne.accountNumber}; Balance: {user.accountOne.Balance} kr.");
-                        Console.WriteLine();
-                        Console.WriteLine($"2. {user.accountTwo.accountName}; Account number {user.accountTwo.accountNumber}; Balance: {user.accountTwo.Balance} kr.");
-                        Console.WriteLine();
+                        for (int i = 0; i < user.userAccounts.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                            Console.WriteLine();
+                        }
                         Console.WriteLine("---------------------------------------------------------");
                         Console.WriteLine();
-                        Console.WriteLine("What account do you want to withdraw money from? Write corresponding number:  ");
-                        string userChoiceDeposit = Console.ReadLine();
-                        Console.WriteLine("And how much money do you want to withdraw? ");
+                        Console.WriteLine("What account do you want to deposit money to? Write corresponding number:  ");
+                        int userChoiceDeposit = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("And how much money do you want to deposit? ");
                         int userChoiceDepositAmount = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine();
-                        if (userChoiceDeposit == "1")
+
+                        int DepositIndex = userChoiceDeposit - 1;
+
+
+
+                        if (userChoiceDeposit > user.userAccounts.Length)
                         {
-                            user.accountOne.MakeDeposit(userChoiceDepositAmount, DateTime.Now, "Deposit");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
                         }
-                        else if (userChoiceDeposit == "2")
+                        else if (userChoiceDeposit <= 0)
                         {
-                            user.accountTwo.MakeDeposit(userChoiceDepositAmount, DateTime.Now, "Deposit");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("Invalid option. Please try again: ");
-                            userChoiceDeposit = Console.ReadLine();
+                            user.userAccounts[DepositIndex].MakeDeposit(userChoiceDepositAmount, DateTime.Now, "Money deposit");
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Your money has been Deposited. New balances: ");
+                            Console.WriteLine();
+
+                            for (int i = 0; i < user.userAccounts.Length; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                                Console.WriteLine();
+                            }
+
+
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
                         }
                         break;
-                    
-                    case "5":
-                        programLoop = false;
 
+                    case "5":
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine();
+                        for (int i = 0; i < user.userAccounts.Length; i++)
+                        {
+                            Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}; Balance: {user.userAccounts[i].Balance} kr.");
+                            Console.WriteLine();
+                        }
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine($"Type the corresponding number to select the account you want to see your transaction history on. Or typ {user.userAccounts.Length + 1} to see for all accounts. ");
+                        int userChoiceTransactions = Convert.ToInt32(Console.ReadLine());
+                        int transactionIndex = userChoiceTransactions - 1;
+                        if (userChoiceTransactions == user.userAccounts.Length + 1)
+                        {
+                            
+                            for (int i = 0; i < user.userAccounts.Length; i++)
+                            {
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.WriteLine($"{i + 1}. {user.userAccounts[i].accountName}; Account number {user.userAccounts[i].accountNumber}");
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.WriteLine(user.userAccounts[i].GetAccountHistory());
+                                Console.WriteLine("---------------------------------------------------------");
+                                Console.WriteLine();
+                            }
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
+                        }
+                        else if (userChoiceTransactions <= 0)
+                        {
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
+
+                        }
+                        else if (userChoiceTransactions > user.userAccounts.Length + 1)
+                        {
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Invalid option. Press any key to return to menu ");
+                            Console.ReadKey();
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine(user.userAccounts[transactionIndex].GetAccountHistory());
+                            Console.WriteLine("---------------------------------------------------------");
+                            Console.WriteLine("Press any key to return to menu");
+                            Console.ReadKey();
+                        }
+                        break;
+                    case "6":
+                        programLoop = false;
                         break;
                     default:
+                        Console.WriteLine("---------------------------------------------------------");
                         Console.WriteLine("Invalid command.");
-
+                        Console.WriteLine("---------------------------------------------------------");
+                        Console.WriteLine("Press any key to return to menu");
+                        Console.ReadKey();
                         break;
 
                 }

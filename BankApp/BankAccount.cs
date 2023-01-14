@@ -7,7 +7,7 @@ namespace BankApp
         public string accountNumber { get; }
 
         public string accountName { get; set; }
-        //the balance of each account is  calculated through adding each item inside the list allTransactions.
+        //the balance of each account is calculated through adding the sum of each item.Amount inside the list allTransactions.
         public decimal Balance
         {
             get
@@ -39,6 +39,7 @@ namespace BankApp
             if (amount <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "Amount of deposit must be positiv");
+                
             }
             var deposit = new Transaction(amount, date, note);
             allTransactions.Add(deposit);
@@ -49,6 +50,7 @@ namespace BankApp
             if (amount <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(amount), "Amount of withdrawal must be positiv");
+                
             }
             //making sure you cannot subtract a greater number than what is stored on Balance
             if (Balance - amount < 0)
@@ -58,7 +60,7 @@ namespace BankApp
             var withdrawal = new Transaction(-amount, date, note);
             allTransactions.Add(withdrawal);
         }
-        //not currently implemented this feature for a user. is to come in future update. 
+        
         public string GetAccountHistory()
         {
             var report = new StringBuilder();
